@@ -6,6 +6,7 @@
 
         // https://www.unixtimestamp.com/
         // https://stackoverflow.com/questions/17632584/how-to-get-the-unix-timestamp-in-c-sharp
+        // Todo class Interval?
         public int FromTime { get; set; }
 
         // constraint: FromTime <= ToTime
@@ -20,6 +21,7 @@
 
         public bool Intersects(Reservation other) // todo static?
                                                   // todo test Intersects
+        // todo roomId must be taken in into consideration
         {
             return (FromTime < other.FromTime && other.FromTime < ToTime) ||
                    (FromTime < other.ToTime && other.ToTime < ToTime);
