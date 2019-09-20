@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservationV3.model;
 
@@ -49,12 +52,34 @@ namespace RoomReservationV3.Controllers
 
         // POST: api/Reservations
         [HttpPost]
-        public void Post([FromBody] Reservation reservation)
+        public ActionResult<int> Post([FromBody] Reservation reservation)
         {
             // todo check roomId exists
             // todo check overlapping time intervals
+
+            if (reservation.FromTime > reservation.ToTime)
+            {
+                return BadRequest("FromTime > ToTime: " + reservation.FromTime + " > " + reservation.ToTime);
+            }
+
+            Room room = new RoomsController().Get(reservation.RoomId);
+            if (room == null)
+            {
+                return BadRequest("No such room: " + reservation.RoomId);
+            }
+
+            bool overlapping = Reservations.Exists(
+                reservation1 => reservation1.RoomId == reservation.RoomId
+                                && reservation1.Intersects(reservation));
+
+            if (overlapping)
+            {
+                return BadRequest("Room occupied");
+            }
+
             reservation.Id = _nextId++;
             Reservations.Add(reservation);
+            return reservation.Id;
         }
 
         // PUT: api/Reservations/5
