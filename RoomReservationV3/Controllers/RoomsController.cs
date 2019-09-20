@@ -33,10 +33,10 @@ namespace RoomReservationV3.Controllers
             return Rooms.FirstOrDefault(room => room.Id == id);
         }
 
-        [HttpGet("name/{name}", Name = "Get")]
-        public Room Get(string name)
+        [HttpGet("name/{roomName}", Name = "Get")]
+        public Room Get(string roomName)
         {
-            return Rooms.FirstOrDefault(room => room.Name == name);
+            return Rooms.FirstOrDefault(room => room.Name == roomName);
         }
 
         // POST: api/Rooms

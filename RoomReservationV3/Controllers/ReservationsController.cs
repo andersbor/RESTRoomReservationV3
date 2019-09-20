@@ -11,7 +11,7 @@ namespace RoomReservationV3.Controllers
     {
         private static readonly List<Reservation> Reservations = new List<Reservation>
         {
-
+            new Reservation {Id=1, RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"}
         };
 
         private static int _nextId = 10;
