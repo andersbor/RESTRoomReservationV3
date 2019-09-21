@@ -23,8 +23,15 @@
                                                   // todo test Intersects
         // todo roomId must be taken in into consideration
         {
-            return (FromTime < other.FromTime && other.FromTime < ToTime) ||
-                   (FromTime < other.ToTime && other.ToTime < ToTime);
+            return Intersects(other.FromTime, other.ToTime);
+            //return (FromTime < other.FromTime && other.FromTime < ToTime) ||
+            //       (FromTime < other.ToTime && other.ToTime < ToTime);
+        }
+
+        public bool Intersects(long fromTime, long toTime)
+        {
+            return (FromTime < fromTime && fromTime < ToTime) ||
+                   (FromTime < toTime && toTime < ToTime);
         }
     }
 }

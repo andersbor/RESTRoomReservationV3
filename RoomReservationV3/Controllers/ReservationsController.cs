@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
 using Microsoft.AspNetCore.Mvc;
 using RoomReservationV3.model;
 
@@ -42,13 +40,33 @@ namespace RoomReservationV3.Controllers
         }
 
         [HttpGet]
+        [Route("room/{roomId}/{fromTime}/{toTime}")]
+        public ActionResult<IEnumerable<Reservation>> GetByRoomIdAndTimeInterval(int roomId, int fromTime, int toTime)
+        {
+            if (fromTime > toTime)
+                return BadRequest("FromTime > ToTime: " + fromTime + " > " + toTime);
+            //DateTime early = new DateTime(year, month, day);
+            //DateTime late = new DateTime(year, month, day, 23, 59, 59);
+            //long earlyTicks = ConvertToUnixTime(early) / 1000;
+            //long lateTicks = ConvertToUnixTime(late) / 1000;
+            return Reservations.FindAll(reservation => reservation.RoomId == roomId &&
+                                                       reservation.Intersects(fromTime, toTime));
+        }
+
+        // https://www.fluxbytes.com/csharp/convert-datetime-to-unix-time-in-c/
+        private static readonly DateTime sTime = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+        public static long ConvertToUnixTime(DateTime datetime)
+        {
+            return (long)(datetime - sTime).TotalSeconds;
+        }
+
+        [HttpGet]
         [Route("user/{userId}")]
         public IEnumerable<Reservation> GetByUserId(string userId)
         {
             return Reservations.FindAll(reservation => reservation.UserId == userId);
         }
-
-        // TODO GET method with dates. Idea: roomid + Unix time, find all reservation in this day
 
         // POST: api/Reservations
         [HttpPost]
