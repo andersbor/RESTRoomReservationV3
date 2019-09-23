@@ -39,7 +39,20 @@ namespace RoomReservationV3.Controllers
             return Reservations.FindAll(reservation => reservation.RoomId == roomId);
         }
 
+        // https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&tabs=visual-studio
+        /// <summary>
+        ///   Constraint: fromTime &gt;= toTime, otherwise BadRequest
+        /// </summary>
+        /// <remarks>
+        /// Constraint: fromTime &gt;= toTime, otherwise BadRequest
+        /// </remarks>
+        /// <param name="roomId"></param>
+        /// <param name="fromTime"></param>
+        /// <param name="toTime"></param>
+        /// <returns>Returns all reservation with the specified roomId and time interval</returns>
         [HttpGet]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         [Route("room/{roomId}/{fromTime}/{toTime}")]
         public ActionResult<IEnumerable<Reservation>> GetByRoomIdAndTimeInterval(int roomId, int fromTime, int toTime)
         {
@@ -70,6 +83,8 @@ namespace RoomReservationV3.Controllers
 
         // POST: api/Reservations
         [HttpPost]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(400)]
         public ActionResult<int> Post([FromBody] Reservation reservation)
         {
             // todo check roomId exists
