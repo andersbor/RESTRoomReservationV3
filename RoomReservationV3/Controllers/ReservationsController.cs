@@ -12,7 +12,9 @@ namespace RoomReservationV3.Controllers
     {
         private static readonly List<Reservation> Reservations = new List<Reservation>
         {
-            new Reservation {Id=1, RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"}
+            new Reservation {Id=1, RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"},
+            new Reservation { Id=2, RoomId=2, FromTime = 1569574800, ToTime = 1569581711, Purpose = "Mobile Application Development"},
+            new Reservation {Id =3, RoomId = 1, FromTime = 1569581880, ToTime = 1569581915, Purpose = "3sem lessons"}
         };
 
         private static int _nextId = 10;
@@ -64,6 +66,15 @@ namespace RoomReservationV3.Controllers
             //long lateTicks = ConvertToUnixTime(late) / 1000;
             return Reservations.FindAll(reservation => reservation.RoomId == roomId &&
                                                        reservation.Intersects(fromTime, toTime));
+        }
+
+        [HttpGet]
+        [ProducesResponseType(200)]
+        [Route("room/{roomId}/{fromTime}")]
+        public ActionResult<IEnumerable<Reservation>> GetByRoomIdAfterTime(int roomId, int fromTime)
+        {
+            return Reservations.FindAll(reservation => reservation.RoomId == roomId
+                                                       && reservation.FromTime >= fromTime);
         }
 
         // https://www.fluxbytes.com/csharp/convert-datetime-to-unix-time-in-c/

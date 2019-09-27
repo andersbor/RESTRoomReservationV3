@@ -13,8 +13,9 @@ namespace RoomReservationV3.Controllers
         {
             new Room {Id =1, Name="RO-D3.07", Capacity = 35, Description = "Class Room"},
             new Room {Id=2, Name="RO-D3.11", Capacity = 35, Description = "Class Room"},
-            new Room {Id=3, Name="A2.015", Capacity = 6, Description = "Study Room"}
-
+            new Room {Id=3, Name="A2.015", Capacity = 6, Description = "Study Room"},
+            new Room  {Id=4, Name="RO-D3.16", Capacity = 25, Description = "Class Room"},
+            new Room {Id=5, Name = "D3.09", Capacity = 25, Description = "Class Room"}
         };
 
         // GET: api/Rooms
