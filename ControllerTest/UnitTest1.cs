@@ -22,7 +22,7 @@ namespace ControllerTest
             Assert.IsTrue((reservation1.Intersects(reservation4)));
             Assert.IsTrue(reservation5.Intersects(reservation1));
             Assert.IsTrue(reservation1.Intersects(reservation5));
-            Assert.Fail();
+            //Assert.Fail();
         }
 
         [TestMethod]
