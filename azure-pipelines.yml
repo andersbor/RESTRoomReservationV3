@@ -49,7 +49,7 @@ steps:
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
-    azureSubscription: 'edaa3574-d80b-4170-9ad2-f9b619fb3f91'
+    azureSubscription: 'Microsoft Imagine'
     appType: 'webApp'
     WebAppName: 'anbo-roomreservationv3'
     package: '$(System.ArtifactsDirectory)/**/*.zip'
