@@ -10,7 +10,7 @@ namespace RoomReservationV3.Controllers
     [ApiController]
     public class ReservationsController : ControllerBase
     {
-        private static readonly List<Reservation> Reservations = new List<Reservation>
+        public static readonly List<Reservation> Reservations = new List<Reservation>
         {
             new Reservation {Id=1, RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"},
             new Reservation { Id=2, RoomId=2, FromTime = 1569574800, ToTime = 1569581711, Purpose = "Mobile Application Development"},
@@ -18,7 +18,6 @@ namespace RoomReservationV3.Controllers
         };
 
         private static int _nextId = 10;
-
 
         // GET: api/Reservations
         [HttpGet]

@@ -1,11 +1,24 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RoomReservationV3.Controllers;
 using RoomReservationV3.model;
+//using System.Linq;
 
 namespace ControllerTest
 {
     [TestClass]
     public class UnitTest1
     {
+        [TestMethod]
+        public void TestGetAvailableRooms()
+        {
+            RoomsController controller = new RoomsController();
+            var rooms = controller.GetAvailableRooms(10);
+           // Assert.AreEqual(3, rooms.Count());
+
+            rooms = controller.GetAvailableRooms(1569574801);
+           // Assert.AreEqual(2, rooms.Count());
+        }
+
         [TestMethod]
         public void TestReservationIntersect()
         {
@@ -24,6 +37,8 @@ namespace ControllerTest
             Assert.IsTrue(reservation1.Intersects(reservation5));
             //Assert.Fail();
         }
+
+        
 
         [TestMethod]
         public void TestIntersect()
