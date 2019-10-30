@@ -12,9 +12,9 @@ namespace RoomReservationV3.Controllers
     {
         public static readonly List<Reservation> Reservations = new List<Reservation>
         {
-            new Reservation {Id=1, RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"},
-            new Reservation { Id=2, RoomId=2, FromTime = 1569574800, ToTime = 1569581711, Purpose = "Mobile Application Development"},
-            new Reservation {Id =3, RoomId = 1, FromTime = 1569581880, ToTime = 1569581915, Purpose = "3sem lessons"}
+            new Reservation {Id=1, UserId="1a2b3c", RoomId = 1,FromTime = 1568981908, ToTime = 1568984908, Purpose = "Lesson"},
+            new Reservation { Id=2, UserId="1a3b3c", RoomId=2, FromTime = 1569574800, ToTime = 1569581711, Purpose = "Mobile Application Development"},
+            new Reservation {Id =3, UserId="123abv", RoomId = 1, FromTime = 1569581880, ToTime = 1569581915, Purpose = "3sem lessons"}
         };
 
         private static int _nextId = 10;
@@ -38,6 +38,13 @@ namespace RoomReservationV3.Controllers
         public IEnumerable<Reservation> GetByRoomId(int roomId)
         {
             return Reservations.FindAll(reservation => reservation.RoomId == roomId);
+        }
+
+        [HttpGet]
+        [Route("user/{userId}/{roomId}")]
+        public IEnumerable<Reservation> GetByUserIdAndRoomId(string userId, int roomId)
+        {
+            return Reservations.FindAll(res => res.UserId == userId && res.RoomId == roomId);
         }
 
         // https://docs.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-3.0&tabs=visual-studio
