@@ -98,6 +98,14 @@ namespace RoomReservationV3.Controllers
             return Reservations.FindAll(reservation => reservation.UserId == userId);
         }
 
+        [HttpGet]
+        [Route("user/{userId}/{fromTime}")]
+        public IEnumerable<Reservation> GetByUserIdAndFromTime(string userId, int fromTime)
+        {
+            return Reservations.FindAll(reservation => reservation.UserId == userId
+            && reservation.FromTime >= fromTime);
+        }
+
         // POST: api/Reservations
         [HttpPost]
         [ProducesResponseType(200)]
